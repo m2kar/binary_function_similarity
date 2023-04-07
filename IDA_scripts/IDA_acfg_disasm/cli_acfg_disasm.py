@@ -38,6 +38,7 @@ import json
 import subprocess
 import time
 
+import os
 from os import getenv
 from os.path import abspath
 from os.path import dirname
@@ -76,6 +77,9 @@ def main(json_path, output_dir):
             success_cnt, error_cnt = 0, 0
             start_time = time.time()
             for idb_rel_path in jj.keys():
+                # if os is windows, then transform the path to windows format
+                if os.path.sep == '\\':
+                    idb_rel_path=idb_rel_path.replace('/', '\\')
                 print("\n[D] Processing: {}".format(idb_rel_path))
 
                 # Convert the relative path into a full path
